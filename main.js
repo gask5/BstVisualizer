@@ -29,7 +29,7 @@ function insertItem(){
       }
       
       if(tempNode.getParent()){
-            let parentBackgroundColor =  document.getElementById(tempNode.getParent().getValue()).style.backgroundColor;
+            let parentBackgroundColor = tempNode.getParent().getColor();
             document.getElementById(newItem).style.setProperty('--parent', parentBackgroundColor);
       }
       var ptr = tree.radice;
@@ -48,7 +48,7 @@ function insertItem(){
       document.getElementById(newItem).style.animationDelay = tempNode.getDepth()/2 + "s";
       document.getElementById(newItem).style.marginLeft = tempNode.getX()+"px";
       document.getElementById(newItem).style.marginTop = tempNode.getY()+"px";
-      document.getElementById(newItem).style.backgroundColor = "hsl(" + newItem + ", 100%, 90%)";
+      document.getElementById(newItem).style.backgroundColor = tempNode.getColor();
       
       preOrder(tree.radice)
 }

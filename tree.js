@@ -7,6 +7,7 @@ class BST{
             var tmp = new NodeBST(value);
             var ptr = this.radice;
             var padre = ptr;
+
             if(this.radice == null ){
                   this.radice = tmp;
                   this.radice.setX(900);

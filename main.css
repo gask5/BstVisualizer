@@ -48,28 +48,30 @@ body{
       transition: 1s;
       width: 25px;
       text-align: center;
+      animation: slide-in-elliptic-top-fwd 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .left, .right{
       border-top: 3px ridge  var(--parent);
-	animation: slide-in-elliptic-top-fwd 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 
 }
 
 .radix{
       border-top: 3px ridge rgba(0,0,0,1);
+      
 }
 
 .left::after{
       width: calc(var(--parentDistance) *-1);
       margin-right: var(--parentDistance);
       background: var(--parent);
-     
+
 }
 
 .left::after, .right::before{
       position: absolute;
       animation:  fade-in 2s both;
+      animation-delay: 2s;
       content:'';
       height: 1px;
       margin-top: -3px;

@@ -1,5 +1,6 @@
 class NodeBST {
       value;
+      color;
       parent; right; left;
       x; y;
       size = 20;
@@ -7,11 +8,16 @@ class NodeBST {
     
       constructor(_value) {
         this.value=_value;
+        this.color = "hsl(" + _value + ", 100%, 90%)"
         this.parent = this.right = this.left = null;
       }
       
       getDepth(){
         return this.depth;
+      }
+
+      getColor(){
+        return this.color;
       }
 
       setDepth(value){
