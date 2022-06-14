@@ -10,12 +10,15 @@
         <title>Tree Visualizer</title>
     </head>
     <div id="mainContainer">
-        <biv id= "#buttonsDiv">
+        <div id= "#buttonsDiv">
             <h1>BST Visualizer</h1>
-            <button onclick="insertItem()">Add Random Node</button>
-            <button onclick="moveLeft()">Move Left</button>
-            <button onclick="moveRight()">Move Right</button>
-        </biv>
+            <button onclick="addRandomValue()">Add Random Node</button>
+            <input type="number" id="inputValue" value="Max Value is 999"></input>
+            <button onclick="addValue()">Insert Value</button>
+            <i>Range(1, 999)</i>
+            <input type="range" min="-3000" max="3000" value="0" class="slider" id="canvasOffset">
+
+        </div>
         <div id="canvas"  style="margin-left: 0px"></div>
     </div>
 <body>

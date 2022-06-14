@@ -1,8 +1,10 @@
 var tree = new BST();
+var slider = document.getElementById("canvasOffset");
 
 
-function insertItem(){
-      let newItem = Math.round(Math.random()*1000);
+
+function insertItem(value){
+      let newItem = value;
       var tempNode = tree.insert(newItem);
       if(!tempNode) return;
       //console.log(tempNode.getDepth());
@@ -70,6 +72,19 @@ function moveLeft(){
       let oldPosition = canvas.style.marginLeft;
       oldPosition = parseInt(oldPosition.substring(0, oldPosition.length -2));
       canvas.style.marginLeft = oldPosition - 50 + "px";
+}
+
+function addValue(){
+      let valueToInsert = document.getElementById("inputValue").value;
+      if(valueToInsert <1000 && valueToInsert>0) insertItem(valueToInsert);
+}
+
+function addRandomValue(){
+      insertItem(Math.floor(Math.random() * 1000));
+}
+
+slider.oninput = function() {
+      canvas.style.marginLeft = this.value + "px";
 }
 
 
