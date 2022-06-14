@@ -1,5 +1,5 @@
 # Description
-A BST Visualizer just using html, js and css.
+A Retro-Style BST Visualizer just using html, js and css.
 
 ## How to
 Clone and open index.html
