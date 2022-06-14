@@ -1,4 +1,4 @@
-# Desciption
+# Description
 A BST Visualizer just using html, js and css.
 
 ## How to
