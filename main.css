@@ -37,6 +37,13 @@ body{
      
 }
 
+#output{
+      background-color: white;
+      border: solid 1px black;
+      width: 50%;
+      height: fit-content;
+}
+
 .branch{
       width: fit-content;
       height: fit-content;

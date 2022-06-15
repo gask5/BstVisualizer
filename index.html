@@ -12,14 +12,21 @@
     <div id="mainContainer">
         <div id= "#buttonsDiv">
             <h1>BST Visualizer</h1>
-            <button onclick="addRandomValue()">Add Random Node</button>
+            <button id="randomValueButton" onclick="addRandomValue()">Add Random Node</button>
+            <button id="preOrderButton" onclick="preOrderTraversal()">Pre Order</button>
+            <button id="inOrderButton" onclick="inOrderTraversal()">In Order</button>
+            <button id="postOrderButton" onclick="postOrderTraversal()">Post Order</button>
+            
             <input type="number" id="inputValue" value="Max Value is 999"></input>
-            <button onclick="addValue()">Insert Value</button>
+            <button id="singleValueButton" onclick="addValue()">Insert Value</button>
+            
+            
             <i>Range(1, 999)</i>
             <input type="range" min="-3000" max="3000" value="0" class="slider" id="canvasOffset">
 
         </div>
         <div id="canvas"  style="margin-left: 0px"></div>
+        <div id="output"></div>
     </div>
 <body>
 <script src="treeNode.js"></script>

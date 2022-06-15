@@ -1,3 +1,5 @@
+var targetNode;
+
 class BST{
       radice;
       constructor(){ this.radice = null;}
@@ -39,8 +41,12 @@ class BST{
       }
 
       _search(node,key){
-            if(!node) return false;
-            if(node.getValue()==key) return true;
+            if(!node) return null;
+            if(node.getValue()==key){
+                  console.log("Found node");
+                  targetNode = node;
+                  return true;
+            } 
 
             if(key > node.getValue()) this._search(node.getRight(),key);
             else  this._search(node.getLeft(),key);
@@ -50,14 +56,86 @@ class BST{
             this._search(this.radice,key);
       }
 
+      succ(node){
+            if(node.getRight()) return this.minimo(node.getRight());
+            
+            let p = node.getParent() ;
+            while(p && node.getValue() > p.getValue()){
+                p = p.getParent();
+            }
+
+            return p;
+        }
+
+      minimo(node){
+            if(node.getLeft()) return this.minimo(node.getLeft());
+            return node;
+      }
+
+      canc(key){
+            this._search(this.radice,key);
+            var tmp = targetNode;
+            console.log(tmp.getValue());
+            if(tmp) this._canc(tmp,key);
+            return this;
+      }
+
+      _canc(node, key){
+            // if(!node) return; <- controllo non necessario;
+            console.log("HGLLO");
+            if(node.getLeft()&&node.getRight()){
+                let successore = this.succ(node);
+                document.getElementById(parseInt(node.getValue())).innerHTML = successore.getValue();
+                document.getElementById(successore.getValue()).id = -1;
+                document.getElementById(node.getValue()).id = successore.getValue();
+                node.setValue( successore.getValue() );
+                console.log("BOTH" + successore.getValue());
+                
+               
+
+                this._canc( successore, successore.getValue() );
+            }
+
+            else{
+                
+                let child = node.getRight();
+                if(!child) child = node.getLeft();
+
+                let padre = node.getParent();
+
+                if(child) child.setParent(padre);
+
+                if(!padre) {
+                    this.radice = child;
+                    return;
+                }
+
+               
+
+                if(node.getValue() >= padre.getValue()){
+                  padre.setRight(child);
+                } 
+                else {
+                  padre.setLeft(child);
+                }
+                if(child) child.setY(child.getY()-child.size);
+                document.getElementById(node.getValue()).id = -1;
+
+               
+                return;
+                
+            }
+        }
       // print() {
       //       print(this.radice);
       // }
-
+      
       preOrder(node = this.radice){
             if(node==null) return;
             console.log(node.getValue()+ " ");
-            this.preOrder(node.getRight());
+       
             this.preOrder(node.getLeft()); 
+            this.preOrder(node.getRight());   
       }
+      
 };

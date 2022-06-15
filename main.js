@@ -1,7 +1,23 @@
 var tree = new BST();
 var slider = document.getElementById("canvasOffset");
+var result = new Array();
+const output = document.getElementById("output");
 
 
+
+
+function deleteItem(value){
+      tree.canc(value);
+      
+      let toDelete = document.getElementById(-1);
+      while(toDelete != null){
+            canvas.removeChild(toDelete);
+            toDelete = document.getElementById(-1);
+      }
+     
+
+      fixTree(tree.radice)
+}
 
 function insertItem(value){
       let newItem = value;
@@ -39,11 +55,15 @@ function insertItem(value){
       var myInterval = setInterval(function () {
             if(ptr==null) clearInterval(myInterval);
             else{
-                  document.getElementById(ptr.getValue()).style.backgroundColor = "hsl(" + ptr.getValue() + ", 100%, 90%)";;
+                  document.getElementById(ptr.getValue()).style.backgroundColor = "hsl(" + ptr.getValue() + ", 100%, 90%)";
                   if(newItem>= ptr.getValue()) {
+                        if(newItem!=ptr.getValue()) output.innerHTML = newItem + " > " + ptr.getValue();
                         ptr = ptr.getRight();
                   }
-                  else ptr = ptr.getLeft();   
+                  else{
+                        if(newItem!=ptr.getValue())output.innerHTML = newItem + " < " + ptr.getValue();
+                        ptr = ptr.getLeft(); 
+                  }   
                   if(ptr!=null)document.getElementById(ptr.getValue()).style.backgroundColor = "hsl(0, 100%, 60%)";
             }
       }, 500);
@@ -52,12 +72,70 @@ function insertItem(value){
       document.getElementById(newItem).style.marginTop = tempNode.getY()+"px";
       document.getElementById(newItem).style.backgroundColor = tempNode.getColor();
       
-      preOrder(tree.radice)
+      fixTree(tree.radice)
 }
 
 window.onload = function() {
       var canvas = document.getElementById(canvas);
 }
+
+async function preOrderTraversal(){
+      disableButtons();
+      await preOrder(tree.radice);
+      //console.log(result);
+      output.innerHTML = "PREORDER TRAVERSAL: ";
+      printResult();
+}
+
+function disableButtons(){
+      document.querySelector('#preOrderButton').disabled = true;
+      document.querySelector('#inOrderButton').disabled = true;
+      document.querySelector('#postOrderButton').disabled = true;
+      document.querySelector('#randomValueButton').disabled = true;
+      document.querySelector('#singleValueButton').disabled = true;
+
+}
+
+function enableButtons(){
+      document.querySelector('#preOrderButton').disabled = false;
+      document.querySelector('#inOrderButton').disabled = false;
+      document.querySelector('#postOrderButton').disabled = false;
+      document.querySelector('#randomValueButton').disabled = false;
+      document.querySelector('#singleValueButton').disabled = false;
+
+}
+
+async function inOrderTraversal(){
+      disableButtons();
+      await inOrder(tree.radice);
+      //console.log(result);
+      output.innerHTML = "INORDER TRAVERSAL: ";
+      printResult();
+}
+
+async function postOrderTraversal(){
+      disableButtons();
+      await postOrder(tree.radice);
+      //console.log(result);
+      output.innerHTML = "POSTORDER TRAVERSAL: ";
+      printResult();
+}
+
+function printResult(){
+      let tmpResult = result;
+      result = [];
+      for(let r in tmpResult){
+            setTimeout(() => {
+                  document.getElementById(tmpResult[r]).style.backgroundColor = "hsl(0, 100%, 60%)";
+                  output.innerHTML = output.innerHTML + " " + tmpResult[r];
+            }, r*1000);
+      }
+      setTimeout(() => { for(let r in tmpResult){
+            document.getElementById(tmpResult[r]).style.backgroundColor ="hsl(" + tmpResult[r] + ", 100%, 90%)";
+            enableButtons();
+      } }, tmpResult.length*1000);
+}
+
 
 
   
@@ -76,7 +154,12 @@ function moveLeft(){
 
 function addValue(){
       let valueToInsert = document.getElementById("inputValue").value;
-      if(valueToInsert <1000 && valueToInsert>0) insertItem(valueToInsert);
+      if(valueToInsert <1000 && valueToInsert>0) insertItem(parseInt(valueToInsert));
+}
+
+function deleteValue(){
+      let valueToInsert = document.getElementById("inputValue").value;
+      if(valueToInsert <1000 && valueToInsert>0) deleteItem(parseInt(valueToInsert));
 }
 
 function addRandomValue(){
@@ -133,6 +216,8 @@ function fixSons(n , delta){
       // //console.log("Adjusting x from " + position + " to " + (position + delta) + "px")
       n.setX(n.getX()+delta);
       document.getElementById(n.getValue()).style.marginLeft = (n.getX() + "px");
+      document.getElementById(n.getValue()).style.marginTop = (n.getY() + "px");
+
 
       let tempo =  n.getX() - n.getParent().getX() ;
       document.getElementById(n.getValue()).style.setProperty('--parentDistance', tempo + "px");
@@ -141,14 +226,38 @@ function fixSons(n , delta){
       
 }
 
-function preOrder(node){
+function fixTree(node){
       if(node==null) return;
-      preOrder(node.getRight());
+      fixTree(node.getRight());
       
-      preOrder(node.getLeft()); 
+      fixTree(node.getLeft()); 
       
       fix(node);
       
 }
+
+
+async function preOrder(node){
+      if(node==null) return;
+      result.push(node.getValue());
+      await preOrder(node.getLeft());
+      await preOrder(node.getRight()); 
+}
+
+async function inOrder(node){
+      if(node==null) return;
+      await inOrder(node.getLeft());
+      result.push(node.getValue());
+      await inOrder(node.getRight()); 
+}
+
+async function postOrder(node){
+      if(node==null) return;
+      await postOrder(node.getLeft());
+      await postOrder(node.getRight()); 
+      result.push(node.getValue());
+}
+
+
 
   
