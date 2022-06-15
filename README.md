@@ -5,4 +5,4 @@ A Retro-Style BST Visualizer just using html, js and css.
 Clone and open index.html
 
 ## Demo
-https://gask5.github.io/TreeVisualizer/
+https://gask5.github.io/BstVisualizer/
